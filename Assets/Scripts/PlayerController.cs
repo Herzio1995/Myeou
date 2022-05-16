@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 jumpSpeed;
     private bool isGrounded;
     private Rigidbody rb;
+    public Animator animator;
     void Awake()
     {
         Physics.gravity = gravity;
@@ -18,12 +19,14 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.anyKeyDown && isGrounded) 
         {
+            animator.SetBool("IsJumping", true);
             rb.velocity = jumpSpeed;
             isGrounded = false;
         }
     }
     private void OnCollisionEnter(Collision collision)
     {
+        animator.SetBool("IsJumping", false);
         isGrounded = true;
     }
 }
